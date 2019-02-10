@@ -10,4 +10,9 @@
     <string name="kigali">KIG</string>
     <string name="lagos">LAG</string>
     <string name="nairobi">NAI</string>
+    <string name="uganda">Uganda</string>
+    <string name="rwanda">Rwanda</string>
+    <string name="nigeria">Nigeria</string>
+    <string name="kenya">Kenya</string>
+    <string name="america">America</string>
 </resources>

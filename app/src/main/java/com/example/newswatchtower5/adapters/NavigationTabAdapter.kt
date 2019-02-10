@@ -2,14 +2,14 @@ package com.example.newswatchtower5.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 
 /**
  * Responsible for handling the tab navigation.
  */
 class NavigationTabAdapter(fragmentManager: FragmentManager) :
-    FragmentPagerAdapter(fragmentManager) {
-    private var navigationTabList:MutableList<Fragment> = mutableListOf()
+    FragmentStatePagerAdapter(fragmentManager) {
+    private var navigationTabList: MutableList<Fragment> = mutableListOf()
 
     override fun getItem(position: Int): Fragment = navigationTabList[position]
 

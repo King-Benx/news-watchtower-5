@@ -47,7 +47,7 @@
                 tools:text="Sample title for news title that will" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/descriptionTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

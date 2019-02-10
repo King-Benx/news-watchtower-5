@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'ApiSecKey', ApiKey
+    }
+
 }
 
 dependencies {
@@ -39,5 +43,7 @@ dependencies {
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
 
 }
