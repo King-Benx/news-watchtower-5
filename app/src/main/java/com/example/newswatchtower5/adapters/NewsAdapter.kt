@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newswatchtower5.R
 import com.example.newswatchtower5.models.Article
+import com.example.newswatchtower5.shared.shareStory
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -23,12 +25,23 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
 //      holder.imageUrl.setImageDrawable() = newsUpdate.urlToImage
         holder.title.text = newsUpdate.title
         holder.description.text = newsUpdate.description
+        holder.shareButton.setOnClickListener {
+            val message =
+                "Title:\t" + newsUpdate.title + "\n" + "\nDescription:\t" + newsUpdate.description + "\n" + "\nLink:\t" + newsUpdate.url +
+                        "\n" + "\nSource:\t" + newsUpdate.source.name + "\n"
+            shareStory(holder.itemView.context, message, holder.itemView.context.packageManager)
+
+
+        }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //        var imageUrl = itemView.findViewById<ImageView>(R.id.newsImage)
         var title = itemView.findViewById<TextView>(R.id.headlineTextView)
         var description = itemView.findViewById<TextView>(R.id.descriptionTextView)
+        var shareButton =
+            itemView.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)
+
 
     }
 }
