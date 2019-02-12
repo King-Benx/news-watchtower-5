@@ -1,6 +1,8 @@
 package com.example.newswatchtower5.shared
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
@@ -16,6 +18,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Handles retrieval of data basing on a location.
+ */
 fun loadData(
     context: Context,
     recyclerView: RecyclerView,
@@ -47,6 +52,9 @@ fun loadData(
     })
 }
 
+/**
+ * Handles retrieval data based on a source.
+ */
 fun loadDataBySource(
     context: Context,
     recyclerView: RecyclerView,
@@ -78,6 +86,9 @@ fun loadDataBySource(
     })
 }
 
+/**
+ * Handles rendering of fragments
+ */
 fun loadFragment(
     fragmentManager: FragmentManager,
     framelayout: FrameLayout,
@@ -88,4 +99,18 @@ fun loadFragment(
         fragmentTransaction.replace(framelayout.id, fragment[key]!!, key).addToBackStack(key)
     }
     fragmentTransaction.commit()
+}
+
+/**
+ * Handles sharing of a user's stories.
+ */
+fun shareStory(context: Context, message: String, packageManger: PackageManager) {
+    val sendIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, message)
+        type = "text/plain"
+    }
+    if (sendIntent.resolveActivity(packageManger) != null) {
+        context.startActivity(sendIntent)
+    }
 }
