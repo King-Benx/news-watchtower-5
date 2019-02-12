@@ -16,4 +16,14 @@
     <string name="nigeria">Nigeria</string>
     <string name="kenya">Kenya</string>
     <string name="america">America</string>
+    <string name="stored_news">Your Saved Stories</string>
+    <string name="your_local_news">Reports In Your Location</string>
+    <string name="top_international_news">International Top Headlines</string>
+    <string name="home">Home</string>
+    <string name="generalFragment">generalFragment</string>
+    <string name="home_button">Home Button</string>
+    <string name="top_headlines">Top Headlines</string>
+    <string name="bbc">bbc-news</string>
+    <string name="internationalFragment">internationalFragment</string>
+    <string name="news_watchtower_5">News WatchTower 5</string>
 </resources>
