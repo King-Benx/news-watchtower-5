@@ -1,5 +1,10 @@
 package com.example.newswatchtower5.models
 
+import androidx.fragment.app.Fragment
+
+/**
+ * 3 classes responsible for how our requests are represented.
+ */
 data class NewsReport(
     val status: String,
     val totalResults: Long,
@@ -21,3 +26,12 @@ data class Source(
     val id: String? = null,
     val name: String
 )
+
+/**
+ * Responsible for keep track of our fragments
+ */
+data class FragmentTag(
+    val fragment: Fragment,
+    val tag: String
+)
+

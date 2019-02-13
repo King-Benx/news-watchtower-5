@@ -11,12 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newswatchtower5.adapters.NewsAdapter
 import com.example.newswatchtower5.constants.API_KEY
+import com.example.newswatchtower5.models.FragmentTag
 import com.example.newswatchtower5.models.NewsReport
 import com.example.newswatchtower5.services.NewsService
 import com.example.newswatchtower5.services.NewsServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+var mFragments = ArrayList<String>()
+val fragments = ArrayList<FragmentTag>()
+var exitCount = 0
 
 /**
  * Handles retrieval of data basing on a location.
@@ -96,7 +101,32 @@ fun loadFragment(
 ) {
     val fragmentTransaction = fragmentManager.beginTransaction()
     for (key in fragment.keys) {
-        fragmentTransaction.replace(framelayout.id, fragment[key]!!, key).addToBackStack(key)
+        if (!mFragments.contains(key)) {
+            fragmentTransaction.add(framelayout.id, fragment[key]!!, key)
+            mFragments.add(key)
+            fragments.add(FragmentTag(fragment[key]!!, key))
+        } else {
+            mFragments.remove(key)
+            mFragments.add(key)
+        }
+        setFragmentVisibility(key, fragmentManager)
+    }
+    fragmentTransaction.commit()
+}
+
+
+/**
+ * Handle fragment visibility
+ */
+fun setFragmentVisibility(tag: String, fragmentManager: FragmentManager) {
+    val fragmentTransaction = fragmentManager.beginTransaction()
+    for (fragmentTag in fragments) {
+        if (tag == fragmentTag.tag) {
+            fragmentTransaction.show(fragmentTag.fragment)
+
+        } else {
+            fragmentTransaction.hide(fragmentTag.fragment)
+        }
     }
     fragmentTransaction.commit()
 }
