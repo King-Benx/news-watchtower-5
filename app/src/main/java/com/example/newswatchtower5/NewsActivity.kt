@@ -3,6 +3,7 @@ package com.example.newswatchtower5
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -10,13 +11,17 @@ import androidx.fragment.app.Fragment
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.internationalnews.InternationalNewsFragment
 import com.example.newswatchtower5.shared.GeneralFragment
+import com.example.newswatchtower5.shared.exitCount
 import com.example.newswatchtower5.shared.loadFragment
+import com.example.newswatchtower5.shared.setFragmentVisibility
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.app_bar_news.*
 
 class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     HelperInterface {
+
+
     override fun loadDefaultFragment() {
         init()
     }
@@ -45,9 +50,25 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
+        }
+        val backStackCount = com.example.newswatchtower5.shared.mFragments.size
+        if (backStackCount > 1) {
+            val topFragmentTag = com.example.newswatchtower5.shared.mFragments[backStackCount - 1]
+            val newFragmentTag = com.example.newswatchtower5.shared.mFragments[backStackCount - 2]
+            setFragmentVisibility(newFragmentTag, supportFragmentManager)
+            com.example.newswatchtower5.shared.mFragments.remove(topFragmentTag)
+        } else if (backStackCount == 1) {
+            exitCount++
+            Toast.makeText(this, "1 more click to exit", Toast.LENGTH_SHORT).show()
+        }
+
+        if (exitCount >= 2) {
+            com.example.newswatchtower5.shared.mFragments.clear()
+            com.example.newswatchtower5.shared.mFragments = ArrayList()
             super.onBackPressed()
         }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
