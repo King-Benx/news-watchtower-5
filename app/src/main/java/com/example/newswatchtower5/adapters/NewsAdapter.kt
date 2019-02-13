@@ -4,12 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newswatchtower5.R
 import com.example.newswatchtower5.models.Article
 import com.example.newswatchtower5.shared.shareStory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 
 class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -33,10 +35,11 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
 
 
         }
+        Picasso.with(holder.itemView.context).load(newsUpdate.urlToImage).into(holder.imageView)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //        var imageUrl = itemView.findViewById<ImageView>(R.id.newsImage)
+        var imageView = itemView.findViewById<ImageView>(R.id.newsImage)
         var title = itemView.findViewById<TextView>(R.id.headlineTextView)
         var description = itemView.findViewById<TextView>(R.id.descriptionTextView)
         var shareButton =
