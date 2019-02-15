@@ -8,18 +8,26 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.example.newswatchtower5.constants.NEWS_DETAILS
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.internationalnews.InternationalNewsFragment
-import com.example.newswatchtower5.shared.GeneralFragment
-import com.example.newswatchtower5.shared.exitCount
-import com.example.newswatchtower5.shared.loadFragment
-import com.example.newswatchtower5.shared.setFragmentVisibility
+import com.example.newswatchtower5.models.Article
+import com.example.newswatchtower5.shared.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.app_bar_news.*
 
 class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     HelperInterface {
+    override fun loadDetailView(article: Article) {
+        val detailFragment = DetailFragment()
+        val bundle = Bundle()
+        bundle.putParcelable(NEWS_DETAILS, article)
+        detailFragment.arguments = bundle
+        val fragment = HashMap<String, Fragment>()
+        fragment[getString(R.string.detailFragment)] = detailFragment
+        loadFragment(supportFragmentManager, findViewById(R.id.frame), fragment)
+    }
 
 
     override fun loadDefaultFragment() {

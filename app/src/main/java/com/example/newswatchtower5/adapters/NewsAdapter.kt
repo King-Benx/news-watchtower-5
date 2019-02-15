@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newswatchtower5.R
+import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.models.Article
 import com.example.newswatchtower5.shared.shareStory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,7 +25,6 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
 
     override fun onBindViewHolder(holder: NewsAdapter.ViewHolder, position: Int) {
         val newsUpdate = newsUpdates[position]
-//      holder.imageUrl.setImageDrawable() = newsUpdate.urlToImage
         holder.title.text = newsUpdate.title
         holder.description.text = newsUpdate.description
         holder.shareButton.setOnClickListener {
@@ -36,6 +36,11 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
 
         }
         Picasso.with(holder.itemView.context).load(newsUpdate.urlToImage).into(holder.imageView)
+
+        holder.itemView.setOnClickListener {
+            val helperInterface = holder.itemView.context as HelperInterface
+            helperInterface.loadDetailView(newsUpdate)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
