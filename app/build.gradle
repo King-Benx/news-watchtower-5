@@ -23,6 +23,9 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'ApiSecKey', ApiKey
     }
+    androidExtensions {
+        experimental = true
+    }
 
 }
 

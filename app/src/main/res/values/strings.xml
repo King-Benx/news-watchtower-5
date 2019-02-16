@@ -26,4 +26,9 @@
     <string name="bbc">bbc-news</string>
     <string name="internationalFragment">internationalFragment</string>
     <string name="news_watchtower_5">News WatchTower 5</string>
+    <string name="news_details">News Details</string>
+    <string name="author">Author</string>
+    <string name="source">Source</string>
+    <string name="publish_date">Publish Date</string>
+    <string name="detailFragment">detailFragment</string>
 </resources>
