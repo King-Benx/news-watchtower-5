@@ -31,15 +31,18 @@ class GeneralFragment : Fragment() {
         val navigationTabAdapter = NavigationTabAdapter(this.fragmentManager!!)
         val viewPager = view.findViewById<ViewPager>(R.id.viewpager_container)
         val tabButtons = view.findViewById<TabLayout>(R.id.tab_buttons)
-        navigationTabAdapter.addFragment(KampalaNewsFragment())
-        navigationTabAdapter.addFragment(KigaliNewsFragment())
-        navigationTabAdapter.addFragment(LagosNewsFragment())
-        navigationTabAdapter.addFragment(NairobiNewsFragment())
-        navigationTabAdapter.addFragment(NewYorkNewsFragment())
+        val fragments = listOf(
+            KampalaNewsFragment(),
+            KigaliNewsFragment(),
+            LagosNewsFragment(),
+            NairobiNewsFragment(),
+            NewYorkNewsFragment()
+        )
+        fragments.forEach { navigationTabAdapter.addFragment(it) }
         viewPager.adapter = navigationTabAdapter
         tabButtons.setupWithViewPager(viewPager)
         tabButtons.getTabAt(KAMPALA_NEWS)!!.text = getString(R.string.kampala)
-        tabButtons.getTabAt(KIGALI_NEWS)!!.text = getString(R.string.kigali)
+        tabButtons.getTabAt(KIGALI_NEWS)!!.text  = getString(R.string.kigali)
         tabButtons.getTabAt(LAGOS_NEWS)!!.text = getString(R.string.lagos)
         tabButtons.getTabAt(NAIROBI_NEWS)!!.text = getString(R.string.nairobi)
         tabButtons.getTabAt(NEW_YORK_NEWS)!!.text = getString(R.string.new_york)

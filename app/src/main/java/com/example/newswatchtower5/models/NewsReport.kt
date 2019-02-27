@@ -21,8 +21,7 @@ class Article(
     val description: String,
     val url: String,
     val urlToImage: String,
-    val publishedAt: String,
-    val content: String? = null
+    val publishedAt: String
 ) : Parcelable
 
 @Parcelize

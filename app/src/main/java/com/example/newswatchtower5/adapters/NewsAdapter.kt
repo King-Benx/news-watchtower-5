@@ -25,18 +25,19 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
 
     override fun onBindViewHolder(holder: NewsAdapter.ViewHolder, position: Int) {
         val newsUpdate = newsUpdates[position]
-        holder.title.text = newsUpdate.title
-        holder.description.text = newsUpdate.description
-        holder.shareButton.setOnClickListener {
-            val message =
-                "Title:\t" + newsUpdate.title + "\n" + "\nDescription:\t" + newsUpdate.description + "\n" + "\nLink:\t" + newsUpdate.url +
-                        "\n" + "\nSource:\t" + newsUpdate.source.name + "\n"
-            shareStory(holder.itemView.context, message, holder.itemView.context.packageManager)
+        with(newsUpdate) {
+            holder.title.text = title
+            holder.description.text = description
+            holder.shareButton.setOnClickListener {
+                val message =
+                    "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
+                            "\n" + "\nSource:\t" + source.name + "\n"
+                shareStory(holder.itemView.context, message, holder.itemView.context.packageManager)
 
 
+            }
+            Picasso.with(holder.itemView.context).load(urlToImage).into(holder.imageView)
         }
-        Picasso.with(holder.itemView.context).load(newsUpdate.urlToImage).into(holder.imageView)
-
         holder.itemView.setOnClickListener {
             val helperInterface = holder.itemView.context as HelperInterface
             helperInterface.loadDetailView(newsUpdate)
