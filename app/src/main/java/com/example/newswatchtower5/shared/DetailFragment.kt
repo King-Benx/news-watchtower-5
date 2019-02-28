@@ -38,29 +38,30 @@ class DetailFragment : Fragment() {
         val authorTextView = view.findViewById<TextView>(R.id.authorTextView)
         val sourceUrlTextView = view.findViewById<TextView>(R.id.sourceUrlTextView)
 
-        Picasso.with(view.context).load(article.urlToImage).into(newsImage)
-        val simpleDateFormat = SimpleDateFormat("d-MM-Y", Locale.US)
-        val date = simpleDateFormat.parse(article.publishedAt.substring(0, 10))
-        headlineTextView.text = article.title
-        descriptionTextView.text = article.description
-        publishDateTextView.text = simpleDateFormat.format(date).replace('-', '/')
-        sourceTextView.text = article.source.name
-        authorTextView.text = article.author
-        sourceUrlTextView.text = article.url
+        with(article) {
+            Picasso.with(view.context).load(urlToImage).into(newsImage)
+            val simpleDateFormat = SimpleDateFormat("d-MM-Y", Locale.US)
+            val date = simpleDateFormat.parse(publishedAt.substring(0, 10))
+            headlineTextView.text = title
+            descriptionTextView.text = description
+            publishDateTextView.text = simpleDateFormat.format(date).replace('-', '/')
+            sourceTextView.text = source.name
+            authorTextView.text = author
+            sourceUrlTextView.text = url
+
+            shareButton.setOnClickListener {
+                val message =
+                    "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
+                            "\n" + "\nSource:\t" + source.name + "\n"
+                shareStory(view.context, message, view.context.packageManager)
+            }
+
+        }
 
         homeButton.setOnClickListener {
             val helperInterface = activity as HelperInterface
             helperInterface.loadDefaultFragment()
         }
-
-        shareButton.setOnClickListener {
-            val message =
-                "Title:\t" + article.title + "\n" + "\nDescription:\t" + article.description + "\n" + "\nLink:\t" + article.url +
-                        "\n" + "\nSource:\t" + article.source.name + "\n"
-            shareStory(view.context, message, view.context.packageManager)
-        }
-
-
         return view
     }
 }
