@@ -49,19 +49,14 @@ class DetailFragment : Fragment() {
             authorTextView.text = author
             sourceUrlTextView.text = url
 
-            shareButton.setOnClickListener {
-                val message =
-                    "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
-                            "\n" + "\nSource:\t" + source.name + "\n"
-                shareStory(view.context, message, view.context.packageManager)
-            }
+            val message =
+                "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
+                        "\n" + "\nSource:\t" + source.name + "\n"
+            handleShareClick(view.context, view.context.packageManager, shareButton, message)
 
         }
 
-        homeButton.setOnClickListener {
-            val helperInterface = activity as HelperInterface
-            helperInterface.loadDefaultFragment()
-        }
+        backHomeClick(activity as HelperInterface, homeButton)
         return view
     }
 }
