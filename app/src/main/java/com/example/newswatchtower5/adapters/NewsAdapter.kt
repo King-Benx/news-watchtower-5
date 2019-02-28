@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newswatchtower5.R
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.models.Article
-import com.example.newswatchtower5.shared.shareStory
+import com.example.newswatchtower5.shared.handleShareClick
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.jakewharton.rxbinding2.view.RxView
 import com.squareup.picasso.Picasso
+import java.util.concurrent.TimeUnit
 
 class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -28,20 +30,20 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
         with(newsUpdate) {
             holder.title.text = title
             holder.description.text = description
-            holder.shareButton.setOnClickListener {
-                val message =
-                    "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
-                            "\n" + "\nSource:\t" + source.name + "\n"
-                shareStory(holder.itemView.context, message, holder.itemView.context.packageManager)
+            val message =
+                "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
+                        "\n" + "\nSource:\t" + source.name + "\n"
+            handleShareClick(
+                holder.itemView.context,
+                holder.itemView.context.packageManager,
+                holder.shareButton,
+                message
+            )
 
-
-            }
             Picasso.with(holder.itemView.context).load(urlToImage).into(holder.imageView)
         }
-        holder.itemView.setOnClickListener {
-            val helperInterface = holder.itemView.context as HelperInterface
-            helperInterface.loadDetailView(newsUpdate)
-        }
+
+        handleStoryClick(holder.itemView, holder.itemView.context as HelperInterface, newsUpdate)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -53,4 +55,14 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
 
 
     }
+
+    /**
+     * Handles story clicks
+     */
+    private fun handleStoryClick(view: View, helperInterface: HelperInterface, article: Article) {
+        RxView.clicks(view).map {
+            helperInterface.loadDetailView(article)
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+    }
+
 }

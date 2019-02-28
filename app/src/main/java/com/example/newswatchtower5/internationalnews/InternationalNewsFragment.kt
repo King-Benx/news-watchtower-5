@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newswatchtower5.R
 import com.example.newswatchtower5.helpers.HelperInterface
+import com.example.newswatchtower5.shared.backHomeClick
 import com.example.newswatchtower5.shared.loadDataBySource
 
 class InternationalNewsFragment : Fragment() {
@@ -35,10 +36,7 @@ class InternationalNewsFragment : Fragment() {
             )
         }
         val homeButton = view.findViewById<ImageButton>(R.id.home_button)
-        homeButton.setOnClickListener {
-            val helperInterface = activity as HelperInterface
-            helperInterface.loadDefaultFragment()
-        }
+        backHomeClick(activity as HelperInterface, homeButton)
         return view
     }
 }

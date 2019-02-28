@@ -5,19 +5,24 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newswatchtower5.adapters.NewsAdapter
 import com.example.newswatchtower5.constants.API_KEY
+import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.models.FragmentTag
 import com.example.newswatchtower5.models.NewsReport
 import com.example.newswatchtower5.services.NewsService
 import com.example.newswatchtower5.services.NewsServiceBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.jakewharton.rxbinding2.view.RxView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 var mFragments = ArrayList<String>()
 val fragments = ArrayList<FragmentTag>()
@@ -144,3 +149,28 @@ fun shareStory(context: Context, message: String, packageManger: PackageManager)
         context.startActivity(sendIntent)
     }
 }
+
+/**
+ * Handles sharing of stories reactively.
+ */
+fun handleShareClick(
+    context: Context,
+    packageManager: PackageManager,
+    button: FloatingActionButton,
+    message: String
+) {
+    RxView.clicks(button).map {
+        shareStory(context, message, packageManager)
+    }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+}
+
+/**
+ * Handles navigation to home button reactively.
+ */
+fun backHomeClick(helperInterface: HelperInterface, button: ImageButton) {
+    RxView.clicks(button).map {
+        helperInterface.loadDefaultFragment()
+    }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+}
+
+
