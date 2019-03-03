@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newswatchtower5.R
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.models.Article
+import com.example.newswatchtower5.shared.handleSaveArticleClick
 import com.example.newswatchtower5.shared.handleShareClick
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jakewharton.rxbinding2.view.RxView
@@ -41,9 +42,20 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
             )
 
             Picasso.with(holder.itemView.context).load(urlToImage).into(holder.imageView)
+            handleStoryClick(
+                holder.itemView,
+                holder.itemView.context as HelperInterface,
+                newsUpdate
+            )
         }
 
-        handleStoryClick(holder.itemView, holder.itemView.context as HelperInterface, newsUpdate)
+
+
+        handleSaveArticleClick(
+            holder.itemView.context as HelperInterface,
+            holder.saveButton,
+            newsUpdate
+        )
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -52,7 +64,7 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
         var description = itemView.findViewById<TextView>(R.id.descriptionTextView)
         var shareButton =
             itemView.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)
-
+        var saveButton = itemView.findViewById<FloatingActionButton>(R.id.floatingActionSaveButton)
 
     }
 

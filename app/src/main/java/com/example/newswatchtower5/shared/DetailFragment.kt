@@ -30,6 +30,7 @@ class DetailFragment : Fragment() {
 
         val homeButton = view.findViewById<ImageButton>(R.id.home_button)
         val shareButton = view.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)
+        val saveButton = view.findViewById<FloatingActionButton>(R.id.floatingActionSaveButton)
         val newsImage = view.findViewById<ImageView>(R.id.newsImage)
         val headlineTextView = view.findViewById<TextView>(R.id.headlineTextView)
         val descriptionTextView = view.findViewById<TextView>(R.id.descriptionTextView)
@@ -53,9 +54,9 @@ class DetailFragment : Fragment() {
                 "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
                         "\n" + "\nSource:\t" + source.name + "\n"
             handleShareClick(view.context, view.context.packageManager, shareButton, message)
-
         }
 
+        handleSaveArticleClick(activity as HelperInterface, saveButton, article)
         backHomeClick(activity as HelperInterface, homeButton)
         return view
     }

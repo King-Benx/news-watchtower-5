@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/King-Benx/android-level-up/tree/develop.svg?style=svg)](https://circleci.com/gh/King-Benx/android-level-up/tree/develop)
 
 News WatchTower 5 is an application that brings you the latest news updates from various news sources. It provides you with the ability to view news updates in five locations by default Kampala, Kigali, Nairobi, NewYork and Lagos.
-In addition, one can view international headlines, local news, share and save news reports within the application.
+In addition, one can view international headlines, news based on other locals, share and save news reports within the application and ability to operate while offline.
 
 
 ## Screenshots
@@ -64,7 +64,6 @@ test folder holds the unit tests that test the logic and algorithms being used w
 
 * [Kotlin](https://kotlinlang.org/) - Programming language
 * [Android](https://www.android.com/) - Operating System
-* [Dagger 2](https://google.github.io/dagger/) - Dependency Injection
 * [Retrofit](https://square.github.io/retrofit/) - Networking
 * [Picasso](http://square.github.io/picasso/) - Image processing
 * [Room](https://developer.android.com/topic/libraries/architecture/room) - Database management

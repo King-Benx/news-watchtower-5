@@ -1,8 +1,12 @@
 package com.example.newswatchtower5.shared
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import android.provider.Settings
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -10,9 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.newswatchtower5.R
 import com.example.newswatchtower5.adapters.NewsAdapter
 import com.example.newswatchtower5.constants.API_KEY
+import com.example.newswatchtower5.dao.StoredArticle
 import com.example.newswatchtower5.helpers.HelperInterface
+import com.example.newswatchtower5.models.Article
 import com.example.newswatchtower5.models.FragmentTag
 import com.example.newswatchtower5.models.NewsReport
 import com.example.newswatchtower5.services.NewsService
@@ -22,11 +29,15 @@ import com.jakewharton.rxbinding2.view.RxView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-var mFragments = ArrayList<String>()
-val fragments = ArrayList<FragmentTag>()
+val mFragments = mutableListOf<String>()
+val fragments = mutableListOf<FragmentTag>()
 var exitCount = 0
+
+
+/** THIS FILE CONTAINS ALL SHARED FUNCTIONALITY WITHIN THE APPLICATION */
 
 /**
  * Handles retrieval of data basing on a location.
@@ -42,24 +53,55 @@ fun loadData(
     filters["q"] = location
     filters["apiKey"] = API_KEY
 
-    val newsReportRequest = newsService.getNewsUpdates(filters)
-    newsReportRequest.enqueue(object : Callback<NewsReport> {
-        override fun onFailure(call: Call<NewsReport>, t: Throwable) {
-            Log.d("CRASH", t.message.toString())
-        }
+    if (checkInternetConnection(context)) {
 
-        override fun onResponse(
-            call: Call<NewsReport>,
-            response: Response<NewsReport>
-        ) {
-            val newsReport: NewsReport = response.body()!!
-            recyclerView.adapter = NewsAdapter(context, newsReport.articles)
-            if (swipeRefreshLayout != null) {
-                swipeRefreshLayout.isRefreshing = false
+        val newsReportRequest = newsService.getNewsUpdates(filters)
+
+        newsReportRequest.enqueue(object : Callback<NewsReport> {
+            override fun onFailure(call: Call<NewsReport>, t: Throwable) {
+                Log.d("CRASH", t.message.toString())
             }
-        }
 
-    })
+            override fun onResponse(
+                call: Call<NewsReport>,
+                response: Response<NewsReport>
+            ) {
+                val helperInterface = context as HelperInterface
+                helperInterface.progressStatus(true)
+                val newsReport: NewsReport = response.body()!!
+                recyclerView.adapter = NewsAdapter(context, newsReport.articles)
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.isRefreshing = false
+                }
+                helperInterface.progressStatus(false)
+            }
+
+        })
+    } else {
+        showInternetAlertDialiog(context)
+    }
+
+}
+
+/**
+ * shows alert dialog when there is no internet
+ */
+fun showInternetAlertDialiog(context: Context) {
+    val alertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert)
+    alertDialog.setTitle(context.getString(R.string.no_internet_title))
+    alertDialog.setMessage(context.getString(R.string.internet_dialog_message))
+    alertDialog.setPositiveButton("Ok") { _, _ ->
+        context.startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
+    }
+    alertDialog.setNegativeButton("Cancel") { dialog, _ ->
+        if (!checkInternetConnection(context)) {
+            val helperInterface = context as HelperInterface
+            helperInterface.loadSavedArticles()
+        }
+        dialog.dismiss()
+    }
+    alertDialog.create()
+    alertDialog.show()
 }
 
 /**
@@ -75,25 +117,28 @@ fun loadDataBySource(
     val filters = HashMap<String, String>()
     filters["sources"] = source
     filters["apiKey"] = API_KEY
-
-    val newsReportRequest = newsService.getTopHeadlines(filters)
-    newsReportRequest.enqueue(object : Callback<NewsReport> {
-        override fun onFailure(call: Call<NewsReport>, t: Throwable) {
-            Log.d("CRASH", t.message.toString())
-        }
-
-        override fun onResponse(
-            call: Call<NewsReport>,
-            response: Response<NewsReport>
-        ) {
-            val newsReport: NewsReport = response.body()!!
-            recyclerView.adapter = NewsAdapter(context, newsReport.articles)
-            if (swipeRefreshLayout != null) {
-                swipeRefreshLayout.isRefreshing = false
+    if (checkInternetConnection(context)) {
+        val newsReportRequest = newsService.getTopHeadlines(filters)
+        newsReportRequest.enqueue(object : Callback<NewsReport> {
+            override fun onFailure(call: Call<NewsReport>, t: Throwable) {
+                Log.d("CRASH", t.message.toString())
             }
-        }
 
-    })
+            override fun onResponse(
+                call: Call<NewsReport>,
+                response: Response<NewsReport>
+            ) {
+                val newsReport: NewsReport = response.body()!!
+                recyclerView.adapter = NewsAdapter(context, newsReport.articles)
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.isRefreshing = false
+                }
+            }
+
+        })
+    } else {
+        showInternetAlertDialiog(context)
+    }
 }
 
 /**
@@ -101,22 +146,21 @@ fun loadDataBySource(
  */
 fun loadFragment(
     fragmentManager: FragmentManager,
-    framelayout: FrameLayout,
-    fragment: HashMap<String, Fragment>
+    frameLayout: FrameLayout,
+    fragment: Pair<String, Fragment>
 ) {
-    val fragmentTransaction = fragmentManager.beginTransaction()
-    for (key in fragment.keys) {
-        if (!mFragments.contains(key)) {
-            fragmentTransaction.add(framelayout.id, fragment[key]!!, key)
-            mFragments.add(key)
-            fragments.add(FragmentTag(fragment[key]!!, key))
-        } else {
-            mFragments.remove(key)
-            mFragments.add(key)
-        }
-        setFragmentVisibility(key, fragmentManager)
+
+    if (!mFragments.contains(fragment.first)) {
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(frameLayout.id, fragment.second, fragment.first)
+        fragmentTransaction.commit()
+        mFragments.add(fragment.first)
+        fragments.add(FragmentTag(fragment = fragment.second, tag = fragment.first))
+    } else {
+        mFragments.remove(fragment.first)
+        mFragments.add(fragment.first)
     }
-    fragmentTransaction.commit()
+    setFragmentVisibility(tag = fragment.first, fragmentManager = fragmentManager)
 }
 
 
@@ -124,16 +168,18 @@ fun loadFragment(
  * Handle fragment visibility
  */
 fun setFragmentVisibility(tag: String, fragmentManager: FragmentManager) {
-    val fragmentTransaction = fragmentManager.beginTransaction()
-    for (fragmentTag in fragments) {
-        if (tag == fragmentTag.tag) {
-            fragmentTransaction.show(fragmentTag.fragment)
 
+    fragments.forEach {
+        if (tag == it.tag) {
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.show(it.fragment)
+            fragmentTransaction.commit()
         } else {
-            fragmentTransaction.hide(fragmentTag.fragment)
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.hide(it.fragment)
+            fragmentTransaction.commit()
         }
     }
-    fragmentTransaction.commit()
 }
 
 /**
@@ -165,6 +211,31 @@ fun handleShareClick(
 }
 
 /**
+ * Handles saving of stories reactively
+ */
+fun handleSaveArticleClick(
+    helperInterface: HelperInterface,
+    button: FloatingActionButton,
+    article: Article
+) {
+    with(article) {
+        val storedArticle = StoredArticle(
+            UUID.randomUUID().toString(),
+            source.name,
+            author,
+            title,
+            description,
+            url,
+            urlToImage,
+            publishedAt
+        )
+        RxView.clicks(button).map {
+            helperInterface.storeArticle(storedArticle)
+        }.throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe()
+    }
+}
+
+/**
  * Handles navigation to home button reactively.
  */
 fun backHomeClick(helperInterface: HelperInterface, button: ImageButton) {
@@ -174,3 +245,11 @@ fun backHomeClick(helperInterface: HelperInterface, button: ImageButton) {
 }
 
 
+/**
+ * Checks for network connectivity
+ */
+fun checkInternetConnection(context: Context): Boolean {
+    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+    return activeNetwork?.isConnected == true
+}

@@ -31,4 +31,12 @@
     <string name="source">Source</string>
     <string name="publish_date">Publish Date</string>
     <string name="detailFragment">detailFragment</string>
+    <string name="saved_successfully">successfully saved</string>
+    <string name="savedArticleFragment">savedArticleFragment</string>
+    <string name="saved_articles">Saved Articles</string>
+    <string name="enable_internet">Enable Internet</string>
+    <string name="internet_dialog_message">Turn on internet connection to get latest news updates otherwise, you can only view your stored news.</string>
+    <string name="confirm_delete">Confirm Delete!</string>
+    <string name="delete_message"> will be deleted from your storage</string>
+    <string name="no_internet_title">Oops! No Internet Connection!</string>
 </resources>
