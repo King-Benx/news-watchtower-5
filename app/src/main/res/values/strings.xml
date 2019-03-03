@@ -17,7 +17,7 @@
     <string name="kenya">Kenya</string>
     <string name="america">America</string>
     <string name="stored_news">Your Saved Stories</string>
-    <string name="your_local_news">Reports In Your Location</string>
+    <string name="your_locale_news">Reports In Other Locations</string>
     <string name="top_international_news">International Top Headlines</string>
     <string name="home">Home</string>
     <string name="generalFragment">generalFragment</string>
@@ -39,4 +39,5 @@
     <string name="confirm_delete">Confirm Delete!</string>
     <string name="delete_message"> will be deleted from your storage</string>
     <string name="no_internet_title">Oops! No Internet Connection!</string>
+    <string name="localeNewsFragment">localeNewsFragment</string>
 </resources>

@@ -68,7 +68,7 @@ dependencies {
 
     //lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+    kapt "android.arch.lifecycle:compiler:$lifecycle_version"
 
     //View modals
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
