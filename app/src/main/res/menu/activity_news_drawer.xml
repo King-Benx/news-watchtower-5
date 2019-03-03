@@ -13,9 +13,9 @@
                 android:icon="@drawable/ic_public_black_24dp"
                 android:title="@string/top_international_news" />
             <item
-                android:id="@+id/local_news"
+                android:id="@+id/locale_news"
                 android:icon="@drawable/ic_my_location_black_24dp"
-                android:title="@string/your_local_news" />
+                android:title="@string/your_locale_news" />
             <item
                 android:id="@+id/stored_news"
                 android:icon="@drawable/ic_archive_black_24dp"

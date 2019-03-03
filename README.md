@@ -7,10 +7,16 @@ In addition, one can view international headlines, news based on other locals, s
 
 
 ## Screenshots
-| ![landing view](https://github.com/King-Benx/news-watchtower-5/blob/ch-improve-readme.md-164026904/screenshots/landing.png)| ![detail view](https://github.com/King-Benx/news-watchtower-5/blob/ch-improve-readme.md-164026904/screenshots/detail.png) |
+| ![home view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/home.png) | ![dashboard view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/dashboard.png) |
 
 
-| ![navigation view](https://github.com/King-Benx/news-watchtower-5/blob/ch-improve-readme.md-164026904/screenshots/navigation.png) | ![share view](https://github.com/King-Benx/news-watchtower-5/blob/ch-improve-readme.md-164026904/screenshots/share.png) |
+| ![international view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/international.png) | ![locale view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/world.png) |
+
+
+| ![detail view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/detail.png) | ![share view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/share.png) |
+
+
+| ![stored view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/stored.png) | ![network view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/network.png) |
 
 ## Getting Started and Installation
 

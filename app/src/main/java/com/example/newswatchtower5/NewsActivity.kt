@@ -14,6 +14,7 @@ import com.example.newswatchtower5.constants.NEWS_DETAILS
 import com.example.newswatchtower5.dao.StoredArticle
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.internationalnews.InternationalNewsFragment
+import com.example.newswatchtower5.localenews.LocaleNewsFragment
 import com.example.newswatchtower5.models.Article
 import com.example.newswatchtower5.savedarticles.SavedArticleFragment
 import com.example.newswatchtower5.shared.*
@@ -159,6 +160,11 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 loadFragment(supportFragmentManager, findViewById(R.id.frame), fragment)
             }
             R.id.stored_news -> loadSavedArticles()
+            R.id.locale_news -> {
+                val fragment =
+                    Pair(getString(R.string.localeNewsFragment), LocaleNewsFragment())
+                loadFragment(supportFragmentManager, findViewById(R.id.frame), fragment)
+            }
 
         }
 
