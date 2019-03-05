@@ -1,4 +1,4 @@
-package com.example.newswatchtower5.localenews
+package com.example.newswatchtower5.newsviews
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,25 +8,27 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newswatchtower5.R
-import com.example.newswatchtower5.shared.loadData
+import com.example.newswatchtower5.adapters.NewsAdapter
+import com.example.newswatchtower5.helpers.HelperInterface
+import com.example.newswatchtower5.models.NewsViewModal
 
 class LocaleNewsFragment : Fragment(), AdapterView.OnItemSelectedListener {
+    private var location: String = ""
     val recyclerView by lazy {
         view?.findViewById<RecyclerView>(R.id.recycler_view)
     }
-
+    private lateinit var newsViewModal: NewsViewModal
     override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        loadData(
-            this.context!!,
-            recyclerView!!,
-            parent?.getItemAtPosition(position).toString(),
-            null
-        )
+        loadNews(recyclerView!!, Pair("location", parent?.getItemAtPosition(position).toString()))
+        location = parent?.getItemAtPosition(position).toString()
     }
 
     override fun onCreateView(
@@ -48,6 +50,30 @@ class LocaleNewsFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner.adapter = adapter
         }
         spinner.onItemSelectedListener = this
+
+        val swipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.swiperefresh)
+
+        swipeRefreshLayout.setOnRefreshListener {
+            loadNews(recyclerView, Pair(getString(R.string.location), location))
+            swipeRefreshLayout.isRefreshing = false
+        }
+
+
         return view
+    }
+
+    private fun loadNews(recyclerView: RecyclerView, pair: Pair<String, String>) {
+        newsViewModal = ViewModelProviders.of(this).get(NewsViewModal::class.java)
+        newsViewModal.loadNewsArticle(
+            this.context!!, pair
+        )
+            ?.observe(this, Observer { newsReport ->
+                newsReport?.let {
+                    recyclerView.adapter = NewsAdapter(this.context!!, newsReport.articles).also {
+                        val helperInterface = this.context as HelperInterface
+                        helperInterface.progressStatus(false)
+                    }
+                }
+            })
     }
 }

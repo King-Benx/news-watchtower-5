@@ -50,6 +50,9 @@ class DetailFragment : Fragment() {
             authorTextView.text = author
             sourceUrlTextView.text = url
 
+            val helperInterface = activity as HelperInterface
+            helperInterface.progressStatus(false)
+
             val message =
                 "Title:\t" + title + "\n" + "\nDescription:\t" + description + "\n" + "\nLink:\t" + url +
                         "\n" + "\nSource:\t" + source.name + "\n"

@@ -65,6 +65,9 @@ test folder holds the unit tests that test the logic and algorithms being used w
 - Kotlin Style
 - XML Naming Conventions
 
+## Architecture
+* MVVM
+
 
 ## Built With/ Powered by
 
