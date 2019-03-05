@@ -13,10 +13,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.newswatchtower5.constants.NEWS_DETAILS
 import com.example.newswatchtower5.dao.StoredArticle
 import com.example.newswatchtower5.helpers.HelperInterface
-import com.example.newswatchtower5.internationalnews.InternationalNewsFragment
-import com.example.newswatchtower5.localenews.LocaleNewsFragment
 import com.example.newswatchtower5.models.Article
-import com.example.newswatchtower5.savedarticles.SavedArticleFragment
+import com.example.newswatchtower5.models.NewsViewModal
+import com.example.newswatchtower5.newsviews.InternationalNewsFragment
+import com.example.newswatchtower5.newsviews.LocaleNewsFragment
+import com.example.newswatchtower5.newsviews.SavedArticleFragment
 import com.example.newswatchtower5.shared.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_news.*
@@ -27,11 +28,11 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun deleteSavedArticle(storedArticle: StoredArticle) {
         val alertDialog = AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
         alertDialog.setTitle(getString(R.string.confirm_delete))
-        alertDialog.setMessage(storedArticle.title + getString(R.string.delete_message))
-        alertDialog.setPositiveButton("Ok") { _, _ ->
-            articleViewModal.deleteArticle(storedArticle)
+        alertDialog.setMessage(storedArticle.title +" "+ getString(R.string.delete_message))
+        alertDialog.setPositiveButton(getString(R.string.ok)) { _, _ ->
+            newsViewModal.deleteArticle(storedArticle)
         }
-        alertDialog.setNegativeButton("Cancel") { dialog, _ ->
+        alertDialog.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         alertDialog.create()
@@ -52,7 +53,7 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun storeArticle(storedArticle: StoredArticle) {
-        articleViewModal.storeArticle(storedArticle)
+        newsViewModal.storeArticle(storedArticle)
         Toast.makeText(
             this,
             storedArticle.title + " " + getString(R.string.saved_successfully),
@@ -78,7 +79,7 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
     }
 
-    private lateinit var articleViewModal: ArticleViewModal
+    private lateinit var newsViewModal: NewsViewModal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +104,7 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             showInternetAlertDialiog(this)
         }
 
-        articleViewModal = ViewModelProviders.of(this).get(ArticleViewModal::class.java)
+        newsViewModal = ViewModelProviders.of(this).get(NewsViewModal::class.java)
     }
 
     override fun onBackPressed() {
@@ -117,7 +118,7 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             setFragmentVisibility(newFragmentTag, supportFragmentManager)
             mFragments.remove(topFragmentTag)
         } else if (backStackCount == 1) {
-            Toast.makeText(this, "1 more click to exit", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.one_more_click), Toast.LENGTH_SHORT).show()
             exitCount++
         }
 
@@ -140,9 +141,9 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -156,13 +157,19 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.international_news -> {
                 val fragment =
-                    Pair(getString(R.string.internationalFragment), InternationalNewsFragment())
+                    Pair(
+                        getString(R.string.internationalFragment),
+                        InternationalNewsFragment()
+                    )
                 loadFragment(supportFragmentManager, findViewById(R.id.frame), fragment)
             }
             R.id.stored_news -> loadSavedArticles()
             R.id.locale_news -> {
                 val fragment =
-                    Pair(getString(R.string.localeNewsFragment), LocaleNewsFragment())
+                    Pair(
+                        getString(R.string.localeNewsFragment),
+                        LocaleNewsFragment()
+                    )
                 loadFragment(supportFragmentManager, findViewById(R.id.frame), fragment)
             }
 
@@ -173,7 +180,7 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-    fun init() {
+    private fun init() {
         val fragment = Pair(getString(R.string.generalFragment), GeneralFragment())
         loadFragment(supportFragmentManager, findViewById(R.id.frame), fragment)
     }

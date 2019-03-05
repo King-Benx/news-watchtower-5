@@ -9,11 +9,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.newswatchtower5.R
 import com.example.newswatchtower5.adapters.NavigationTabAdapter
 import com.example.newswatchtower5.constants.*
-import com.example.newswatchtower5.kampalanews.KampalaNewsFragment
-import com.example.newswatchtower5.kigalinews.KigaliNewsFragment
-import com.example.newswatchtower5.lagosnews.LagosNewsFragment
-import com.example.newswatchtower5.nairobinews.NairobiNewsFragment
-import com.example.newswatchtower5.newyorknews.NewYorkNewsFragment
+import com.example.newswatchtower5.newsviews.*
 import com.google.android.material.tabs.TabLayout
 
 class GeneralFragment : Fragment() {
@@ -42,7 +38,7 @@ class GeneralFragment : Fragment() {
         viewPager.adapter = navigationTabAdapter
         tabButtons.setupWithViewPager(viewPager)
         tabButtons.getTabAt(KAMPALA_NEWS)!!.text = getString(R.string.kampala)
-        tabButtons.getTabAt(KIGALI_NEWS)!!.text  = getString(R.string.kigali)
+        tabButtons.getTabAt(KIGALI_NEWS)!!.text = getString(R.string.kigali)
         tabButtons.getTabAt(LAGOS_NEWS)!!.text = getString(R.string.lagos)
         tabButtons.getTabAt(NAIROBI_NEWS)!!.text = getString(R.string.nairobi)
         tabButtons.getTabAt(NEW_YORK_NEWS)!!.text = getString(R.string.new_york)

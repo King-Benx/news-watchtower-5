@@ -37,7 +37,12 @@
     <string name="enable_internet">Enable Internet</string>
     <string name="internet_dialog_message">Turn on internet connection to get latest news updates otherwise, you can only view your stored news.</string>
     <string name="confirm_delete">Confirm Delete!</string>
-    <string name="delete_message"> will be deleted from your storage</string>
+    <string name="delete_message">will be deleted from your storage</string>
     <string name="no_internet_title">Oops! No Internet Connection!</string>
     <string name="localeNewsFragment">localeNewsFragment</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="one_more_click">1 more click to exit</string>
+    <string name="location">location</string>
+    <string name="news_source">source</string>
 </resources>

@@ -65,9 +65,14 @@ test folder holds the unit tests that test the logic and algorithms being used w
 - Kotlin Style
 - XML Naming Conventions
 
+## Architecture
+* MVVM
+
 
 ## Built With/ Powered by
 
+* [RxAndroid](https://github.com/ReactiveX/RxAndroid) - Asynchronous and event-based functionality
+* [RxJava](https://github.com/ReactiveX/RxJava) - Asynchronous and event-based functionality
 * [Kotlin](https://kotlinlang.org/) - Programming language
 * [Android](https://www.android.com/) - Operating System
 * [Retrofit](https://square.github.io/retrofit/) - Networking

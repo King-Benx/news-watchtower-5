@@ -77,13 +77,13 @@ class SavedArticleAdapter(context: Context, private val storedArticles: List<Sto
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imageView = itemView.findViewById<ImageView>(R.id.newsImage)
-        var title = itemView.findViewById<TextView>(R.id.headlineTextView)
-        var description = itemView.findViewById<TextView>(R.id.descriptionTextView)
+        var imageView = itemView.findViewById<ImageView>(R.id.newsImage)!!
+        var title = itemView.findViewById<TextView>(R.id.headlineTextView)!!
+        var description = itemView.findViewById<TextView>(R.id.descriptionTextView)!!
         var shareButton =
-            itemView.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)
+            itemView.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)!!
         var deleteButton =
-            itemView.findViewById<FloatingActionButton>(R.id.floatingActionDeleteButton)
+            itemView.findViewById<FloatingActionButton>(R.id.floatingActionDeleteButton)!!
 
     }
 

@@ -9,7 +9,7 @@ object NewsServiceBuilder {
     /**
      * The base url to the API
      */
-    private val URL = "https://newsapi.org/v2/"
+    private const val URL = "https://newsapi.org/v2/"
 
     /**
      * Create logger.
