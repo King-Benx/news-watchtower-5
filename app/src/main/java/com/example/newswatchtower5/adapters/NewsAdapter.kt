@@ -59,12 +59,13 @@ class NewsAdapter(context: Context, private val newsUpdates: List<Article>) :
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imageView = itemView.findViewById<ImageView>(R.id.newsImage)
-        var title = itemView.findViewById<TextView>(R.id.headlineTextView)
-        var description = itemView.findViewById<TextView>(R.id.descriptionTextView)
+        var imageView = itemView.findViewById<ImageView>(R.id.newsImage)!!
+        var title = itemView.findViewById<TextView>(R.id.headlineTextView)!!
+        var description = itemView.findViewById<TextView>(R.id.descriptionTextView)!!
         var shareButton =
-            itemView.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)
-        var saveButton = itemView.findViewById<FloatingActionButton>(R.id.floatingActionSaveButton)
+            itemView.findViewById<FloatingActionButton>(R.id.floatingActionShareButton)!!
+        var saveButton =
+            itemView.findViewById<FloatingActionButton>(R.id.floatingActionSaveButton)!!
 
     }
 

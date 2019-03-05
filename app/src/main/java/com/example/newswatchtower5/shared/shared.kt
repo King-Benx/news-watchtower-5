@@ -7,28 +7,17 @@ import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.provider.Settings
-import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newswatchtower5.R
-import com.example.newswatchtower5.adapters.NewsAdapter
-import com.example.newswatchtower5.constants.API_KEY
 import com.example.newswatchtower5.dao.StoredArticle
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.models.Article
 import com.example.newswatchtower5.models.FragmentTag
-import com.example.newswatchtower5.models.NewsReport
-import com.example.newswatchtower5.services.NewsService
-import com.example.newswatchtower5.services.NewsServiceBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jakewharton.rxbinding2.view.RxView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -40,60 +29,16 @@ var exitCount = 0
 /** THIS FILE CONTAINS ALL SHARED FUNCTIONALITY WITHIN THE APPLICATION */
 
 /**
- * Handles retrieval of data basing on a location.
- */
-fun loadData(
-    context: Context,
-    recyclerView: RecyclerView,
-    location: String,
-    swipeRefreshLayout: SwipeRefreshLayout? = null
-) {
-    val newsService = NewsServiceBuilder.builderService(NewsService::class.java)
-    val filters = HashMap<String, String>()
-    filters["q"] = location
-    filters["apiKey"] = API_KEY
-
-    if (checkInternetConnection(context)) {
-
-        val newsReportRequest = newsService.getNewsUpdates(filters)
-
-        newsReportRequest.enqueue(object : Callback<NewsReport> {
-            override fun onFailure(call: Call<NewsReport>, t: Throwable) {
-                Log.d("CRASH", t.message.toString())
-            }
-
-            override fun onResponse(
-                call: Call<NewsReport>,
-                response: Response<NewsReport>
-            ) {
-                val helperInterface = context as HelperInterface
-                helperInterface.progressStatus(true)
-                val newsReport: NewsReport = response.body()!!
-                recyclerView.adapter = NewsAdapter(context, newsReport.articles)
-                if (swipeRefreshLayout != null) {
-                    swipeRefreshLayout.isRefreshing = false
-                }
-                helperInterface.progressStatus(false)
-            }
-
-        })
-    } else {
-        showInternetAlertDialiog(context)
-    }
-
-}
-
-/**
  * shows alert dialog when there is no internet
  */
 fun showInternetAlertDialiog(context: Context) {
     val alertDialog = AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert)
     alertDialog.setTitle(context.getString(R.string.no_internet_title))
     alertDialog.setMessage(context.getString(R.string.internet_dialog_message))
-    alertDialog.setPositiveButton("Ok") { _, _ ->
+    alertDialog.setPositiveButton(context.getString(R.string.ok)) { _, _ ->
         context.startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
     }
-    alertDialog.setNegativeButton("Cancel") { dialog, _ ->
+    alertDialog.setNegativeButton(context.getString(R.string.cancel)) { dialog, _ ->
         if (!checkInternetConnection(context)) {
             val helperInterface = context as HelperInterface
             helperInterface.loadSavedArticles()
@@ -104,42 +49,6 @@ fun showInternetAlertDialiog(context: Context) {
     alertDialog.show()
 }
 
-/**
- * Handles retrieval data based on a source.
- */
-fun loadDataBySource(
-    context: Context,
-    recyclerView: RecyclerView,
-    source: String,
-    swipeRefreshLayout: SwipeRefreshLayout? = null
-) {
-    val newsService = NewsServiceBuilder.builderService(NewsService::class.java)
-    val filters = HashMap<String, String>()
-    filters["sources"] = source
-    filters["apiKey"] = API_KEY
-    if (checkInternetConnection(context)) {
-        val newsReportRequest = newsService.getTopHeadlines(filters)
-        newsReportRequest.enqueue(object : Callback<NewsReport> {
-            override fun onFailure(call: Call<NewsReport>, t: Throwable) {
-                Log.d("CRASH", t.message.toString())
-            }
-
-            override fun onResponse(
-                call: Call<NewsReport>,
-                response: Response<NewsReport>
-            ) {
-                val newsReport: NewsReport = response.body()!!
-                recyclerView.adapter = NewsAdapter(context, newsReport.articles)
-                if (swipeRefreshLayout != null) {
-                    swipeRefreshLayout.isRefreshing = false
-                }
-            }
-
-        })
-    } else {
-        showInternetAlertDialiog(context)
-    }
-}
 
 /**
  * Handles rendering of fragments
