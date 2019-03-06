@@ -45,4 +45,5 @@
     <string name="one_more_click">1 more click to exit</string>
     <string name="location">location</string>
     <string name="news_source">source</string>
+    <string name="article_database">article_database</string>
 </resources>

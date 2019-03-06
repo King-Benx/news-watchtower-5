@@ -47,10 +47,10 @@ In addition, one can view international headlines, news based on other locals, s
 
 ## Running the tests
 
-In order to run tests from the terminal, run the following commands
+1. In order to run tests from the terminal, run the following commands
 `./gradlew test`
 
-In order to be able to run tests using Android Studio itself, navigate to either androidTest or test folder and select a file then right click the file and select run test
+2. In order to be able to run tests using Android Studio itself, navigate to either androidTest or test folder and select a file then right click the file and select run test
 
 NB: In order to be able to run instrumentation tests, you must have either a device or an emulator running.
 
@@ -68,6 +68,15 @@ test folder holds the unit tests that test the logic and algorithms being used w
 ## Architecture
 * MVVM
 
+## Consumed API Endpoints
+
+```
+    https://newsapi.org/v2/everything?q={query}&apiKey={key}
+```
+
+```
+    https://newsapi.org/v2/top-headlines?sources={source}&apiKey={key}
+```
 
 ## Built With/ Powered by
 
@@ -78,7 +87,6 @@ test folder holds the unit tests that test the logic and algorithms being used w
 * [Retrofit](https://square.github.io/retrofit/) - Networking
 * [Picasso](http://square.github.io/picasso/) - Image processing
 * [Room](https://developer.android.com/topic/libraries/architecture/room) - Database management
-* [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/) - Binding UI components
 
 ## Versioning
 1.0 

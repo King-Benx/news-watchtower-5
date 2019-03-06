@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.newswatchtower5.R
 
 /**
  * The database class.
@@ -30,7 +31,7 @@ abstract class StoredArticleDatabase : RoomDatabase() {
                     if (storedArticleDatabase == null) {
                         this.storedArticleDatabase = Room.databaseBuilder<StoredArticleDatabase>(
                             context.applicationContext,
-                            StoredArticleDatabase::class.java, "article_database"
+                            StoredArticleDatabase::class.java, context.getString(R.string.article_database)
                         ).build()
                     }
                 }

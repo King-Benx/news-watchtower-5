@@ -20,7 +20,7 @@ import com.example.newswatchtower5.models.NewsViewModal
 
 class LocaleNewsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var location: String = ""
-    val recyclerView by lazy {
+    private val recyclerView by lazy {
         view?.findViewById<RecyclerView>(R.id.recycler_view)
     }
     private lateinit var newsViewModal: NewsViewModal
