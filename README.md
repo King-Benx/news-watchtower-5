@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/King-Benx/android-level-up/tree/develop.svg?style=svg)](https://circleci.com/gh/King-Benx/android-level-up/tree/develop)
 
-News WatchTower 5 is an application that brings you the latest news updates from various news sources. It provides you with the ability to view news updates in five locations by default Kampala, Kigali, Nairobi, NewYork and Lagos.
+News WatchTower 5 is an application that brings you the latest news updates from various news sources. It provides you with the ability to view news updates in five locations by default Kampala, Kigali, Nairobi, NewYork, and Lagos.
 In addition, one can view international headlines, news based on other locals, share and save news reports within the application and ability to operate while offline.
 
 
@@ -25,14 +25,14 @@ In addition, one can view international headlines, news based on other locals, s
 
 2. Locate the project on your machine. 
 
-3. In Android Studio, under the file menu select open and select existing project.
+3. In Android Studio, under the file menu select open, then select an existing project.
 
 4. Build the project.
 `./gradlew build`
 
 5. Select an emulator and run the application.
 
-6. In addition, you can run the application using an android device.
+6. In addition, you can run the application using an Android device.
 
 ### Prerequisites
 
@@ -54,7 +54,7 @@ In addition, one can view international headlines, news based on other locals, s
 
 NB: In order to be able to run instrumentation tests, you must have either a device or an emulator running.
 
-### Break down into end to end tests
+### Break down into the end to end tests
 
 androidTest folder holds instrumentation tests and these test components/views specific to Android (UI)
 
