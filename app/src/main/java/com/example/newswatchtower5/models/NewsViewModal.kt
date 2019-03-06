@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.newswatchtower5.R
 import com.example.newswatchtower5.constants.API_KEY
 import com.example.newswatchtower5.dao.StoredArticle
 import com.example.newswatchtower5.dao.StoredArticleDao
@@ -56,7 +57,7 @@ class NewsViewModal(application: Application) : AndroidViewModel(application) {
             val filters = HashMap<String, String>()
             val newsReportRequest: Call<NewsReport>
             filters["apiKey"] = API_KEY
-            if (criteria.first == "location") {
+            if (criteria.first == context.getString(R.string.location)) {
                 filters["q"] = criteria.second
                 newsReportRequest = newsService.getNewsUpdates(filters)
             } else {
