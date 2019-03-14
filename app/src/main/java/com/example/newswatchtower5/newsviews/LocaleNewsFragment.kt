@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import com.example.newswatchtower5.R
 import com.example.newswatchtower5.adapters.NewsAdapter
 import com.example.newswatchtower5.helpers.HelperInterface
 import com.example.newswatchtower5.models.NewsViewModal
+import com.example.newswatchtower5.shared.backHomeClick
 
 class LocaleNewsFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var location: String = ""
@@ -41,6 +43,8 @@ class LocaleNewsFragment : Fragment(), AdapterView.OnItemSelectedListener {
         recyclerView.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         val spinner = view.findViewById<Spinner>(R.id.spinner)
+        val homeButton = view.findViewById<ImageButton>(R.id.home_button)
+
         ArrayAdapter.createFromResource(
             view.context,
             R.array.continents_array,
@@ -58,8 +62,10 @@ class LocaleNewsFragment : Fragment(), AdapterView.OnItemSelectedListener {
             swipeRefreshLayout.isRefreshing = false
         }
 
+        backHomeClick(activity as HelperInterface, homeButton)
 
         return view
+
     }
 
     private fun loadNews(recyclerView: RecyclerView, pair: Pair<String, String>) {

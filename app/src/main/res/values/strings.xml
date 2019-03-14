@@ -46,4 +46,5 @@
     <string name="location">location</string>
     <string name="news_source">source</string>
     <string name="article_database">article_database</string>
+    <string name="other_locale_news">Other Locale News</string>
 </resources>
