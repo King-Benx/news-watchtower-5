@@ -1,6 +1,6 @@
 language: android
 jdk: oraclejdk8
-
+sudo: false
 env:
   global:
   - ANDROID_API_LEVEL=28
@@ -25,9 +25,9 @@ android:
   - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_LEVEL
 
 licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 
 cache:
   directories:
