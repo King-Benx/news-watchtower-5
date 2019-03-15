@@ -142,6 +142,7 @@ class NewsActivityTest {
         )
 
         activityTestRule.activity.loadDetailView(article)
+        Thread.sleep(5000)
 
         onView(withId(R.id.title)).check(
             matches(withText(R.string.news_details))
@@ -167,7 +168,7 @@ class NewsActivityTest {
         )
         descriptionTextView.check(matches(isDisplayed()))
 
-        Thread.sleep(5000)
+
     }
 
 }
