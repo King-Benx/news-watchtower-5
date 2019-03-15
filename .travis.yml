@@ -25,28 +25,28 @@ android:
   - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_LEVEL
 
 licenses:
-  - android-sdk-preview-license-.+
-  - android-sdk-license-.+
-  - google-gdk-license-.+
+- android-sdk-preview-license-.+
+- android-sdk-license-.+
+- google-gdk-license-.+
 
 cache:
   directories:
-    - "$HOME/.gradle/caches/"
-    - "$HOME/.gradle/wrapper/"
-    - "$HOME/.android/build-cache"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 
 script:
-  - android list targets
-  - echo no | android create avd --force -n test -t "android-"$ANDROID_EMULATOR_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
-  - emulator -avd test -no-window &
-  - mkdir -p build/reports
-  - ./gradlew dependencyCheckAnalyze
-  - ./gradlew assembleDebugAndroidTest -PdisablePreDex --continue --stacktrace
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-  - ./gradlew connectedDebugAndroidTest -PdisablePreDex --continue --stacktrace
-  - ./gradlew connectedCheck -PdisabkePreDex --continue --stacktrace
+- android list targets
+- echo no | android create avd --force -n test -t "android-"$ANDROID_EMULATOR_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
+- emulator -avd test -no-window &
+- mkdir -p build/reports
+- ./gradlew dependencyCheckAnalyze
+- ./gradlew assembleDebugAndroidTest -PdisablePreDex --continue --stacktrace
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
+- ./gradlew connectedDebugAndroidTest -PdisablePreDex --continue --stacktrace
+- ./gradlew connectedCheck -PdisabkePreDex --continue --stacktrace
 after_failure:
-  - cat $TRAVIS_BUILD_DIR/app/build/reports/lint-results.xml
+- cat $TRAVIS_BUILD_DIR/app/build/reports/lint-results.xml
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
