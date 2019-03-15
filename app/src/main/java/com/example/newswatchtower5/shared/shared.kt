@@ -62,7 +62,7 @@ fun loadFragment(
     if (!mFragments.contains(fragment.first)) {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.add(frameLayout.id, fragment.second, fragment.first)
-        fragmentTransaction.commit()
+        fragmentTransaction.commitAllowingStateLoss()
         mFragments.add(fragment.first)
         fragments.add(FragmentTag(fragment = fragment.second, tag = fragment.first))
     } else {
@@ -82,11 +82,11 @@ fun setFragmentVisibility(tag: String, fragmentManager: FragmentManager) {
         if (tag == it.tag) {
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.show(it.fragment)
-            fragmentTransaction.commit()
+            fragmentTransaction.commitAllowingStateLoss()
         } else {
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.hide(it.fragment)
-            fragmentTransaction.commit()
+            fragmentTransaction.commitAllowingStateLoss()
         }
     }
 }
