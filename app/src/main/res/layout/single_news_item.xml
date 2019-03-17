@@ -6,28 +6,25 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:contentPadding="16dp"
-        android:focusable="true">
+        app:contentPadding="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:contentDescription="@string/news_image_description"
                 android:id="@+id/newsImage"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/news_image_description"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -39,15 +36,17 @@
                 android:id="@+id/headlineTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:minLines="1"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/newsImage"
-                app:layout_constraintStart_toStartOf="@+id/newsImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newsImage"
                 tools:text="Sample title for news title that will" />
 
@@ -56,12 +55,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:minLines="2"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/headlineTextView"
                 app:layout_constraintHorizontal_bias="0.513"
                 app:layout_constraintStart_toStartOf="@+id/headlineTextView"
@@ -72,26 +69,31 @@
                 android:id="@+id/floatingActionSaveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:layout_constraintEnd_toEndOf="@+id/newsImage"
-                app:layout_constraintTop_toTopOf="@+id/newsImage"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/floatingActionShareButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
                 app:srcCompat="@drawable/ic_save_black_24dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionShareButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="@+id/newsImage"
-                app:layout_constraintEnd_toEndOf="@+id/newsImage"
-                app:layout_constraintTop_toBottomOf="@+id/floatingActionSaveButton"
+                app:layout_constraintBottom_toBottomOf="@+id/floatingActionSaveButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/floatingActionSaveButton"
+                app:layout_constraintTop_toTopOf="@+id/floatingActionSaveButton"
                 app:srcCompat="@drawable/ic_share_black_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

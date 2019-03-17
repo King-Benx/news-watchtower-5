@@ -7,16 +7,16 @@ In addition, one can view international headlines, news based on other locals, s
 
 
 ## Screenshots
-| ![home view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/home.png) | ![dashboard view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/dashboard.png) |
+| ![home view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/home.png) | ![dashboard view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/dashboard.png) |
 
 
-| ![international view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/international.png) | ![locale view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/world.png) |
+| ![international view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/international.png) | ![locale view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/world.png) |
 
 
-| ![detail view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/details.png) | ![share view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/share.png) |
+| ![detail view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/details.png) | ![share view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/share.png) |
 
 
-| ![stored view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/stored.png) | ![network view](https://github.com/King-Benx/news-watchtower-5/blob/ft-implement-locale-news-164335813/screenshots/network.png) |
+| ![stored view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/stored.png) | ![network view](https://github.com/King-Benx/news-watchtower-5/blob/ft-material-design-cleanup-164682501/screenshots/network.png) |
 
 ## Getting Started and Installation
 

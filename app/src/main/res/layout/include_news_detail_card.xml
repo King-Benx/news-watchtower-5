@@ -9,7 +9,7 @@
     app:cardElevation="4dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
-    app:contentPadding="16dp">
+    app:contentPadding="0dp">
 
     <ScrollView
         android:layout_width="match_parent"
