@@ -1,5 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     ext.kotlin_version = '1.3.21'
 
@@ -14,7 +13,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
@@ -38,3 +37,49 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+
+def coverageSourceDirs = [
+        'src/main/java',
+        'src/debug/java',
+        'src/mock/java',
+        'src/prod/java'
+]
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['clean']) {
+    description = 'Generate JaCoCo coverage report'
+    group = 'Reporting'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/*$ViewInjector*.*',
+            '**/*$ViewBinder*.*',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*Fragment.*',
+            '**/*Activity.*',
+            'com/example/newswatchtower5/services/NewsServiceBuilder.kt'
+    ]
+
+    def debugTree = fileTree(dir: "$buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def kotlinDebugTree = fileTree(dir: "$buildDir/tmp/kotlin-classes/prodDebug", excludes: fileFilter)
+
+    classDirectories = files([debugTree], [kotlinDebugTree])
+    sourceDirectories = files(coverageSourceDirs, "src/main/kotlin")
+    executionData     = fileTree(
+            dir     : "$buildDir",
+            include : ['**/*.exec', '**/*.ec']
+    )
+}
+
+task unifiedCoverageReport(dependsOn: ['clean', 'jacocoTestReport', 'createProdDebugCoverageReport']) {
+    description = 'Generates coverage report which includes both local unit tests and instrumentation tests'
+    group = 'Reporting'
+}
