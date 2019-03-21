@@ -8,15 +8,13 @@ buildscript {
     ext.rxjava2_version = '2.1.1'
     ext.retrofit_version = '2.4.0'
     ext.support_version = '28.0.0'
-    ext.lifecycle_version = '1.1.1'
+    ext.lifecycle_version = '2.1.0-alpha03'
     ext.room_version = '1.1.1'
-    ext.mockito_version = '2.13.0'
-    ext.rules_version = '1.0.2'
 
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
