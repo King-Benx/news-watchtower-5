@@ -1,0 +1,37 @@
+task jacocoTestReport(type: JacocoReport, dependsOn: ['clean', 'test']) {
+    description = 'Generate JaCoCo coverage report'
+    group = 'Reporting'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/*$ViewInjector*.*',
+            '**/*$ViewBinder*.*',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*Fragment.*',
+            '**/*Activity.*',
+            'com/asiimwebenard/newswatchtower5/services/*',
+            'com/asiimwebenard/newswatchtower5/shared/*',
+            'com/asiimwebenard/newswatchtower5/adapters/*',
+            'com/asiimwebenard/newswatchtower5/newsviews/*',
+            'com/asiimwebenard/newswatchtower5/models/*NewsViewModal.*',
+            'com/asiimwebenard/newswatchtower5/*NewsActivity.*'
+    ]
+
+    def kotlinDebugTree = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+
+    classDirectories = files([kotlinDebugTree])
+    sourceDirectories = files(["src/main/java"])
+    executionData     = fileTree(
+            dir     : "$buildDir",
+            include : ['**/*.exec', '**/*.ec']
+    )
+}
