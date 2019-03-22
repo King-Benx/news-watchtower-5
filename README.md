@@ -5,7 +5,7 @@
 News WatchTower 5 is an application that brings you the latest news updates from various news sources. It provides you with the ability to view news updates in five locations by default Kampala, Kigali, Nairobi, NewYork, and Lagos.
 In addition, one can view international headlines, news based on other locals, share and save news reports within the application and ability to operate while offline.
 
-### [Get the app on Amazon](https://www.amazon.com/dp/B07PWG48NX/ref=sr_1_fkmrnull_2?keywords=news+watchtower+5&qid=1553190297&s=gateway&sr=8-2-fkmrnull)
+### [Get the app on Amazon](https://www.amazon.com/Asiimwe-Benard-News-WatchTower-5/dp/B07PWG48NX/ref=sr_1_fkmrnull_2?keywords=news+watchtower+5&qid=1553242492&s=gateway&sr=8-2-fkmrnull)
   
 
 ## Screenshots
