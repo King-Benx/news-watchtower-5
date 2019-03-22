@@ -31,7 +31,8 @@ abstract class StoredArticleDatabase : RoomDatabase() {
                     if (storedArticleDatabase == null) {
                         this.storedArticleDatabase = Room.databaseBuilder<StoredArticleDatabase>(
                             context.applicationContext,
-                            StoredArticleDatabase::class.java, context.getString(R.string.article_database)
+                            StoredArticleDatabase::class.java,
+                            context.getString(R.string.article_database)
                         ).build()
                     }
                 }

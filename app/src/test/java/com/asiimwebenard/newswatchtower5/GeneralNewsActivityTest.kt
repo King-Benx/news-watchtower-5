@@ -95,13 +95,20 @@ class GeneralNewsActivityTest {
         assertEquals(storedArticle.id, "1")
         assertEquals(storedArticle.publishedAt, "2019-01-01")
         assertEquals(storedArticle.url, "https://abc.com")
+        assertEquals(storedArticle.describeContents(), 0)
         assertEquals(storedArticle.urlToImage, "https://abcimage.com")
     }
 
     @Test
     fun test_newsReports() {
         val source = Source("1", "bbc")
+        val source2 = Source("1", "bbc")
+        assertEquals(source == source2, true)
+        assertEquals(source.copy("2", "cnn").name, "cnn")
         assertEquals(source.id, "1")
+        assertEquals(source.describeContents(), 0)
+        assertThat(source.toString(), instanceOf(String::class.java))
+        assertThat(source.hashCode(), instanceOf(Int::class.java))
         assertEquals(source.name, "bbc")
         val article =
             Article(
@@ -114,6 +121,7 @@ class GeneralNewsActivityTest {
                 "2019-01-01"
             )
         assertEquals(article.source, source)
+        assertEquals(article.describeContents(), 0)
         assertEquals(article.author, "jane doe")
         assertEquals(article.title, "title")
         assertEquals(article.description, "description")
@@ -122,15 +130,25 @@ class GeneralNewsActivityTest {
         assertEquals(article.publishedAt, "2019-01-01")
 
         val newsReport = NewsReport("ok", 1L, listOf(article))
+        val newsReport2 = NewsReport("ok", 1L, listOf(article))
+        assertEquals(newsReport == newsReport2, true)
         assertEquals(newsReport.status, "ok")
         assertEquals(newsReport.totalResults, 1L)
         assertEquals(newsReport.articles[0], article)
+        assertEquals(newsReport.copy("cancel", 1L, listOf(article)).status, "cancel")
+        assertThat(newsReport.hashCode(), instanceOf(Int::class.java))
+        assertThat(newsReport.toString(), instanceOf(String::class.java))
     }
 
     @Test
     fun test_fragmentTag() {
         val fragmentTag = FragmentTag(GeneralFragment(), "generalFragment")
+        val fragmentTag2 = FragmentTag(GeneralFragment(), "generalFragment")
+        assertThat(fragmentTag.toString(), instanceOf(String::class.java))
+        assertEquals(fragmentTag == fragmentTag2, false)
         assertEquals(fragmentTag.tag, "generalFragment")
+        assertEquals(fragmentTag.copy(Fragment(), "fragment").tag, "fragment")
+        assertThat(fragmentTag.hashCode(), instanceOf(Int::class.java))
         assertThat(fragmentTag.fragment, instanceOf(Fragment::class.java))
     }
 }

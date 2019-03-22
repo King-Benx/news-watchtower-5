@@ -22,16 +22,18 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['clean', 'test']) {
             'com/asiimwebenard/newswatchtower5/shared/*',
             'com/asiimwebenard/newswatchtower5/adapters/*',
             'com/asiimwebenard/newswatchtower5/newsviews/*',
-            'com/asiimwebenard/newswatchtower5/models/*NewsViewModal.*',
-            'com/asiimwebenard/newswatchtower5/*NewsActivity.*'
+            'com/asiimwebenard/newswatchtower5/models/NewsViewModal*.*',
+            'com/asiimwebenard/newswatchtower5/*NewsActivity*',
+            'com/asiimwebenard/newswatchtower5/dao/StoredArticleD*',
+            'com/asiimwebenard/newswatchtower5/dao/StoredArticle.C*'
     ]
 
     def kotlinDebugTree = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
 
     classDirectories = files([kotlinDebugTree])
     sourceDirectories = files(["src/main/java"])
-    executionData     = fileTree(
-            dir     : "$buildDir",
-            include : ['**/*.exec', '**/*.ec']
+    executionData = fileTree(
+            dir: "$buildDir",
+            include: ['**/*.exec', '**/*.ec']
     )
 }
