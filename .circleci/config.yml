@@ -20,6 +20,23 @@ jobs:
     - run:
         name: Run Tests
         command: ./gradlew clean lint test
+    - run:
+        name: Code Climate Test Setup
+        command: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+    - run:
+        name: Code Climate Pretest
+        command: ./cc-test-reporter before-build
+    - run:
+        name: Generate JaCoCo report
+        command: ./gradlew jacocoTestReport
+    - run:
+        name: Upload coverage to code climate
+        command: |
+          export JACOCO_SOURCE_PATH=app/src/main/java
+          ./cc-test-reporter format-coverage app/build/reports/jacocoTestReport/jacocoTestReport.xml -t jacoco
+          ./cc-test-reporter upload-coverage -r ${CC_TEST_REPORTER_ID}
     - store_artifacts:
         path: app/build/reports
         destination: reports

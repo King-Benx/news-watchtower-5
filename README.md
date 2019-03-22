@@ -1,11 +1,11 @@
 # News WatchTower 5
 
-[![CircleCI](https://circleci.com/gh/King-Benx/news-watchtower-5.svg?style=svg)](https://circleci.com/gh/King-Benx/news-watchtower-5) [![Maintainability](https://api.codeclimate.com/v1/badges/e87306cb313d69fde181/maintainability)](https://codeclimate.com/github/King-Benx/news-watchtower-5/maintainability) [![codecov](https://codecov.io/gh/King-Benx/news-watchtower-5/branch/develop/graph/badge.svg)](https://codecov.io/gh/King-Benx/news-watchtower-5)
+[![CircleCI](https://circleci.com/gh/King-Benx/news-watchtower-5.svg?style=svg)](https://circleci.com/gh/King-Benx/news-watchtower-5) [![Maintainability](https://api.codeclimate.com/v1/badges/e87306cb313d69fde181/maintainability)](https://codeclimate.com/github/King-Benx/news-watchtower-5/maintainability) [![codecov](https://codecov.io/gh/King-Benx/news-watchtower-5/branch/develop/graph/badge.svg)](https://codecov.io/gh/King-Benx/news-watchtower-5) [![Test Coverage](https://api.codeclimate.com/v1/badges/e87306cb313d69fde181/test_coverage)](https://codeclimate.com/github/King-Benx/news-watchtower-5/test_coverage)
 
 News WatchTower 5 is an application that brings you the latest news updates from various news sources. It provides you with the ability to view news updates in five locations by default Kampala, Kigali, Nairobi, NewYork, and Lagos.
 In addition, one can view international headlines, news based on other locals, share and save news reports within the application and ability to operate while offline.
 
-### [Get the app on Amazon](https://www.amazon.com/gp/product/B07PZJXK2H?pf_rd_p=1581d9f4-062f-453c-b69e-0f3e00ba2652&pf_rd_r=8W0TJSRGM6SVV8EHXSQ9)
+### [Get the app on Amazon](https://www.amazon.com/dp/B07PWG48NX/ref=sr_1_fkmrnull_2?keywords=news+watchtower+5&qid=1553190297&s=gateway&sr=8-2-fkmrnull)
   
 
 ## Screenshots

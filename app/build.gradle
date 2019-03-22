@@ -6,8 +6,18 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'jacoco-android'
+apply plugin: 'jacoco'
+apply from: rootProject.file('app/jacoco.gradle')
 
+jacoco {
+    toolVersion = "$jacoco_version"
+    reportsDir = file("$buildDir/reports")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
 android {
     compileSdkVersion 28
     defaultConfig {
